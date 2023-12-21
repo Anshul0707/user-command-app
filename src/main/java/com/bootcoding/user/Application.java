@@ -2,6 +2,7 @@ package com.bootcoding.user;
 
 import com.bootcoding.user.command.Command;
 import com.bootcoding.user.command.impl.CreateCommand;
+import com.bootcoding.user.command.impl.DeleteCommand;
 import com.bootcoding.user.command.impl.ExitCommand;
 import com.bootcoding.user.command.impl.ReadCommand;
 import com.bootcoding.user.model.Result;
@@ -28,7 +29,7 @@ public class Application {
             String[] commandWithAttrs = commandStr.split(" ");
 
             Command command = findCommand(commandWithAttrs[0]);
-            if(null == command || command instanceof ExitCommand){
+            if (null == command || command instanceof ExitCommand) {
                 break;
             }
             try {
@@ -41,12 +42,18 @@ public class Application {
     }
 
     private static Command findCommand(String cmd) {
-        switch (cmd){
-            case "create":
-                Command command = new CreateCommand();
-                return command;
-            default:
-                return null;
+        if ("create".equals(cmd)) {
+            Command command = new CreateCommand();
+            return command;
         }
+        else if ("read".equals(cmd)) {
+            Command command = new ReadCommand();
+            return command;
+        }
+        else if ("read".equals(cmd)) {
+            Command command = new DeleteCommand();
+            return command;
+        }
+        return null;
     }
 }
